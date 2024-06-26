@@ -57,56 +57,64 @@ class _IncomeExpenseHomePageState extends State<IncomeExpenseHomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('収支を追加'),
-        content: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: _amountController,
-                decoration: InputDecoration(
-                  labelText: '金額',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12),
+        content: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "選択された日付: ${_selectedDate.month}月${_selectedDate.day}日",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return '金額を入力してください';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 10),
-              DropdownButtonFormField<String>(
-                value: _selectedTag,
-                items: _tags
-                    .map((tag) => DropdownMenuItem(
-                          value: tag,
-                          child: Text(tag),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedTag = value!;
-                  });
-                },
-                decoration: InputDecoration(
-                  labelText: 'タグ',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                SizedBox(height: 10),
+                TextFormField(
+                  controller: _amountController,
+                  decoration: InputDecoration(
+                    labelText: '金額',
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '金額を入力してください';
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                controller: _memoController,
-                decoration: InputDecoration(
-                  labelText: 'メモ',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                SizedBox(height: 10),
+                DropdownButtonFormField<String>(
+                  value: _selectedTag,
+                  items: _tags
+                      .map((tag) => DropdownMenuItem(
+                            value: tag,
+                            child: Text(tag),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedTag = value!;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'タグ',
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 10),
+                TextFormField(
+                  controller: _memoController,
+                  decoration: InputDecoration(
+                    labelText: 'メモ',
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         actions: [
@@ -158,7 +166,11 @@ class _IncomeExpenseHomePageState extends State<IncomeExpenseHomePage> {
                 shape: BoxShape.circle,
               ),
               selectedDecoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.redAccent,
+                shape: BoxShape.circle,
+              ),
+              markerDecoration: BoxDecoration(
+                color: Colors.green,
                 shape: BoxShape.circle,
               ),
             ),
